@@ -13,6 +13,9 @@ namespace lab1{
             this.Register = new List<MusicTrack>();
         }
 
+        public MusicRegister(List<MusicTrack> list){
+            this.Register = list;
+        }
         /// <summary>
         /// Function for get register of tracks
         /// </summary>
@@ -92,6 +95,26 @@ namespace lab1{
             String trackName = track.GetName();
             trackName.Replace(" ", "%20");
             Process.Start("xdg-open", "https://vk.com/music?q=" + trackName);
+        }
+        
+        public Playlist CreatePlaylistByAuthor(String author){
+            List<MusicTrack> buffer = new List<MusicTrack>();
+            foreach(MusicTrack track in this.Register){
+                if (track.GetAuthor().Equals(author)){
+                    buffer.Add(track);
+                }
+            }
+            return new Playlist(buffer);
+        }
+
+        public Playlist CreatePlaylistByAlbum(String album){
+            List<MusicTrack> buffer = new List<MusicTrack>();
+            foreach(MusicTrack track in this.Register){
+                if (track.GetAuthor().Equals(album)){
+                    buffer.Add(track);
+                }
+            }
+            return new Playlist(buffer);
         }
     }
 }

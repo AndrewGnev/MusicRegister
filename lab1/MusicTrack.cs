@@ -5,6 +5,7 @@ namespace lab1{
         private string Author;
         private string Name;
         private string Time;
+        private string Album;
 
         /// <summary>
         /// Creates instance of class type MusicTrack by parameters
@@ -12,8 +13,9 @@ namespace lab1{
         /// <param name="name">Name of track (any string)</param>
         /// <param name="author">Name of author (any string)</param>
         /// <param name="time">Length of track(minutes:seconds)</param>
-        public MusicTrack(string name, string author, string time){
-            if(name == null || author == null || time == null){
+        /// <param name="album">Album of track(any string)</param>
+        public MusicTrack(string name, string author, string time, string album){
+            if(name == null || author == null || time == null || album == null){
                 throw new Exception("Incorrect data format");
             }
             if(!check_time_format.Check(time)){
@@ -22,6 +24,7 @@ namespace lab1{
             this.Author = author;
             this.Name = name;
             this.Time = time;
+            this.Album = album;
             
         }
 
@@ -32,6 +35,7 @@ namespace lab1{
             Author = "";
             Name = "";
             Time = "";
+            Album = "";
         }
 
         /// <summary>
@@ -58,5 +62,8 @@ namespace lab1{
             return this.Time;
         }
 
+        public string GetAlbum(){
+            return this.Album;
+        }
     }
 }

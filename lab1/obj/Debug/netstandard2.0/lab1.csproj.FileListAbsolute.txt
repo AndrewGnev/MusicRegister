@@ -1,8 +1,0 @@
-/home/agapplegate/Lab1/lab1/bin/Debug/netstandard2.0/lab1.deps.json
-/home/agapplegate/Lab1/lab1/bin/Debug/netstandard2.0/lab1.dll
-/home/agapplegate/Lab1/lab1/bin/Debug/netstandard2.0/lab1.pdb
-/home/agapplegate/Lab1/lab1/obj/Debug/netstandard2.0/lab1.csprojAssemblyReference.cache
-/home/agapplegate/Lab1/lab1/obj/Debug/netstandard2.0/lab1.AssemblyInfoInputs.cache
-/home/agapplegate/Lab1/lab1/obj/Debug/netstandard2.0/lab1.AssemblyInfo.cs
-/home/agapplegate/Lab1/lab1/obj/Debug/netstandard2.0/lab1.dll
-/home/agapplegate/Lab1/lab1/obj/Debug/netstandard2.0/lab1.pdb
