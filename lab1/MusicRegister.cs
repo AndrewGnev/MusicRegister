@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 
 namespace lab1{
     public class MusicRegister{
@@ -15,6 +16,21 @@ namespace lab1{
 
         public MusicRegister(List<MusicTrack> list){
             this.Register = list;
+        }
+
+        public MusicRegister RegisterFromDirectory(string directory){
+            string[] files = Directory.GetFiles(directory, "*.mp3");
+            List<MusicTrack> tracks = new List<MusicTrack>();
+            foreach(var track in files){
+                var musicTr = TagLib.File.Create(track);
+                string name = musicTr.Tag.Title;
+                string author = musicTr.Tag.FirstPerformer;
+                string album = musicTr.Tag.Album;
+                TimeSpan time = musicTr.Properties.Duration;
+                MusicTrack newTrack = new MusicTrack(name, author, time.ToString("c"), album);
+                tracks.Add(newTrack);
+            }
+            return new MusicRegister(tracks);
         }
         /// <summary>
         /// Function for get register of tracks
