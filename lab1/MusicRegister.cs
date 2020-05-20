@@ -34,6 +34,24 @@ namespace lab1{
             }
             return new MusicRegister(tracks);
         }
+
+        public MusicRegister RegisterFromSeveralDirectories(string dirs){
+            string[] directories = dirs.Split(' ');
+            List<MusicTrack> tracks = new List<MusicTrack>();
+            foreach(string directory in directories){
+                string[] files = Directory.GetFiles(directory, "*.mp3");
+                foreach(var track in files){
+                    var musicTr = TagLib.File.Create(track);
+                    string name = musicTr.Tag.Title;
+                    string author = musicTr.Tag.FirstPerformer;
+                    string album = musicTr.Tag.Album;
+                    TimeSpan time = musicTr.Properties.Duration;
+                    MusicTrack newTrack = new MusicTrack(name, author, time.ToString("c"), album);
+                    tracks.Add(newTrack);
+                }
+            }
+            return new MusicRegister(tracks);
+        }
         /// <summary>
         /// Function for get register of tracks
         /// </summary>
@@ -174,6 +192,48 @@ namespace lab1{
                 TimeSpan time = musicTr.Properties.Duration;
                 MusicTrack newTrack = new MusicTrack(name, author, time.ToString("c"), album);
                 tracks.Add(newTrack);
+            }
+            return new Playlist(tracks, name);
+        }
+
+        public Playlist CreatePlaylistByAuthorFromSeveralDirectories(string dirs, string authorname, string name){
+            string[] directories = dirs.Split(' ');
+            List<MusicTrack> tracks = new List<MusicTrack>();
+            foreach(string directory in directories){
+                string[] files = Directory.GetFiles(directory, "*.mp3");
+                foreach(var track in files){
+                    var musicTr = TagLib.File.Create(track);
+                    string author = musicTr.Tag.FirstPerformer;
+                    if(!author.Equals(authorname)){
+                        continue;
+                    }
+                    string album = musicTr.Tag.Album;
+                    string title = musicTr.Tag.Title;
+                    TimeSpan time = musicTr.Properties.Duration;
+                    MusicTrack newTrack = new MusicTrack(name, author, time.ToString("c"), album);
+                    tracks.Add(newTrack);
+                }
+            }
+            return new Playlist(tracks, name);
+        }
+
+        public Playlist CreatePlaylistByAlbumFromSeveralDirectories(string dirs, string albumtitle, string name){
+            string[] directories = dirs.Split(' ');
+            List<MusicTrack> tracks = new List<MusicTrack>();
+            foreach(string directory in directories){
+                string[] files = Directory.GetFiles(directory, "*.mp3");
+                foreach(var track in files){
+                    var musicTr = TagLib.File.Create(track);
+                    string album = musicTr.Tag.Album;
+                    if(!album.Equals(albumtitle)){
+                        continue;
+                    }
+                    string author = musicTr.Tag.FirstPerformer;
+                    string title = musicTr.Tag.Title;
+                    TimeSpan time = musicTr.Properties.Duration;
+                    MusicTrack newTrack = new MusicTrack(name, author, time.ToString("c"), album);
+                    tracks.Add(newTrack);
+                }
             }
             return new Playlist(tracks, name);
         }
