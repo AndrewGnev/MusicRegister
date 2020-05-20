@@ -6,10 +6,26 @@ namespace lab1{
         private List<MusicTrack> Tracks;
         private int Length;
 
-        public Playlist (List<MusicTrack> list){
+        private string Name;
+
+        public Playlist (List<MusicTrack> list, string name){
             this.Tracks = list;
             this.Length = list.Count;
+            this.Name = name;
         }
+
+        public string GetName(){
+            return Name;
+        }
+
+        public int GetLength(){
+            return Length;
+        }
+
+        public List<MusicTrack> GetTracks(){
+            return this.Tracks;
+        }
+
 
         public void Randomize (){
             List<MusicTrack> buffer = new List<MusicTrack>();
