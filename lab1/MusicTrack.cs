@@ -4,7 +4,7 @@ namespace lab1{
     public class MusicTrack{
         private string Author;
         private string Name;
-        private string Time;
+        private TimeSpan Time;
         private string Album;
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace lab1{
             }
             this.Author = author;
             this.Name = name;
-            this.Time = time;
+            this.Time = TimeSpan.Parse(time);
             this.Album = album;
             
         }
@@ -34,7 +34,7 @@ namespace lab1{
         public MusicTrack(){
             Author = "";
             Name = "";
-            Time = "";
+            Time = TimeSpan.Parse("");
             Album = "";
         }
 
@@ -59,7 +59,7 @@ namespace lab1{
         /// </summary>
         /// <returns>String in forrmat "minutes:seconds"</returns>
         public string GetTime(){
-            return this.Time;
+            return this.Time.ToString("c");
         }
 
         public string GetAlbum(){
