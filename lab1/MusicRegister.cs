@@ -7,6 +7,8 @@ namespace lab1{
     public class MusicRegister{
         private List<MusicTrack> Register;
 
+        private List<Playlist> Playlists;
+
         /// <summary>
         /// Creates instance of class MusicRegister with empty register of tracks
         /// </summary>
@@ -45,6 +47,13 @@ namespace lab1{
         /// </summary>
         /// <param name="track">MusicTrack object</param>
 
+        public List<string> GetPlaylists(){
+            List<string> playlists = new List<string>();
+            foreach(Playlist playlist in Playlists){
+                playlists.Add(playlist.GetName());
+            }
+            return playlists;
+        }
         public void Add(MusicTrack track){
             foreach(var v in Register){
                 if(v.Equals(track)){
@@ -113,24 +122,60 @@ namespace lab1{
             Process.Start("xdg-open", "https://vk.com/music?q=" + trackName);
         }
         
-        public Playlist CreatePlaylistByAuthor(String author){
+        public Playlist CreatePlaylistByAuthor(string author, string name){
             List<MusicTrack> buffer = new List<MusicTrack>();
             foreach(MusicTrack track in this.Register){
                 if (track.GetAuthor().Equals(author)){
                     buffer.Add(track);
                 }
             }
-            return new Playlist(buffer);
+            return new Playlist(buffer, name);
         }
 
-        public Playlist CreatePlaylistByAlbum(String album){
+        public Playlist CreatePlaylistByAlbum(string album, string name){
             List<MusicTrack> buffer = new List<MusicTrack>();
             foreach(MusicTrack track in this.Register){
                 if (track.GetAuthor().Equals(album)){
                     buffer.Add(track);
                 }
             }
-            return new Playlist(buffer);
+            return new Playlist(buffer, name);
+        }
+
+        public Playlist CreatePlaylistByAuthorFromDirectory(string directory, string authorname, string name){
+            string[] files = Directory.GetFiles(directory, "*.mp3");
+            List<MusicTrack> tracks = new List<MusicTrack>();
+            foreach(var track in files){
+                var musicTr = TagLib.File.Create(track);
+                string author = musicTr.Tag.FirstPerformer;
+                if(!author.Equals(authorname)){
+                    continue;
+                }
+                string title = musicTr.Tag.Title;
+                string album = musicTr.Tag.Album;
+                TimeSpan time = musicTr.Properties.Duration;
+                MusicTrack newTrack = new MusicTrack(name, author, time.ToString("c"), album);
+                tracks.Add(newTrack);
+            }
+            return new Playlist(tracks, name);
+        }
+
+         public Playlist CreatePlaylistByAlbumFromDirectory(string directory, string albumtitle, string name){
+            string[] files = Directory.GetFiles(directory, "*.mp3");
+            List<MusicTrack> tracks = new List<MusicTrack>();
+            foreach(var track in files){
+                var musicTr = TagLib.File.Create(track);
+                string album = musicTr.Tag.Album;
+                if(!album.Equals(albumtitle)){
+                    continue;
+                }
+                string title = musicTr.Tag.Title;                
+                string author = musicTr.Tag.FirstPerformer;
+                TimeSpan time = musicTr.Properties.Duration;
+                MusicTrack newTrack = new MusicTrack(name, author, time.ToString("c"), album);
+                tracks.Add(newTrack);
+            }
+            return new Playlist(tracks, name);
         }
     }
 }
