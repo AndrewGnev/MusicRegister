@@ -27,7 +27,7 @@ namespace lab1{
         }
 
 
-        public void Randomize (){
+        public void Randomize(){
             List<MusicTrack> buffer = new List<MusicTrack>();
             this.Tracks = new List<MusicTrack>();
             Random rand = new Random();
@@ -37,6 +37,14 @@ namespace lab1{
                 this.Tracks.Add(track);
                 buffer.Remove(track);
             }
+        }
+
+        public string FullTime(){
+            TimeSpan duration = TimeSpan.Parse("0");
+            foreach(MusicTrack track in this.Tracks){
+                duration += TimeSpan.Parse(track.GetTime());
+            }
+            return duration.ToString("c");
         }
     }
 }
