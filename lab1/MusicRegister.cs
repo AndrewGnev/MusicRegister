@@ -160,7 +160,7 @@ namespace lab1{
             return new Playlist(buffer, name);
         }
 
-        //dt
+        //dfghj
     
 
         public Playlist CreatePlaylistByAuthorFromDirectory(string directory, string authorname, string name){
