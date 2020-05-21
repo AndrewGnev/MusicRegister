@@ -160,6 +160,9 @@ namespace lab1{
             return new Playlist(buffer, name);
         }
 
+        //dtrfhgjk
+    
+
         public Playlist CreatePlaylistByAuthorFromDirectory(string directory, string authorname, string name){
             string[] files = Directory.GetFiles(directory, "*.mp3");
             List<MusicTrack> tracks = new List<MusicTrack>();
